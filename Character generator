@@ -1,0 +1,20 @@
+import torch
+print(torch.cuda.is_available())
+!pip install --upgrade torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+!pip install --upgrade torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+from diffusers import StableDiffusionPipeline
+from PIL import Image  # To display the image inline in Colab
+
+# Load the Stable Diffusion model
+pipe = StableDiffusionPipeline.from_pretrained("runwayml/stable-diffusion-v1-5")
+pipe = pipe.to("cuda")  # Use "cpu" if GPU is unavailable
+
+# Generate an image
+description = "futuristic city from future"
+image = pipe(description).images[0]
+
+# Display the image inline
+image.show()  # This will not work in Colab, so replace it with the code below
+display(image)  # Use this to display the image inline in Colab
+
